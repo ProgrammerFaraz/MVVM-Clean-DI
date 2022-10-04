@@ -4,6 +4,27 @@
 
 This project contains MVVM-Clean architecture and Dependency injection
 
+### Folder Structure
+
+## Data Layer
+
+# Repository
+
+# Data Source
+
+## Domain Layer
+
+# Entity 
+
+# Usecases
+
+## Presentation Layer
+
+# View
+
+# View Model
+
+
 ## Cloning the project
 
 ### Using XCode:
