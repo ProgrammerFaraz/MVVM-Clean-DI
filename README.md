@@ -4,26 +4,35 @@
 
 This project contains MVVM-Clean architecture and Dependency injection
 
-# Folder Structure
+## Folder Structure
+Every module has :
 
-## Data Layer
+### Data Layer
+Repository Implementations and one or many Data Sources.
 
-### Repository
+##### Repository
+Repositories are responsible for coordinating data from different Data Sources.
 
-### Data Source
+##### Data Source
+Data Source can be Remote or Local. (for example: persistent database or network call)
 
-## Domain Layer
+### Domain Layer
+Domain Layer (Business logic) is the inner-most part of the onion (without dependencies to other layers, it is totally isolated). It contains Entities(Business Models) & Use Cases.
 
-### Entity 
+##### Entity 
+Entities are data models.
 
-### Usecases
+##### Usecases
+Usecase refers to the class which contains the business logic. This does not have (compile) dependencies to the view or any external framework.
 
-## Presentation Layer
+### Presentation Layer
+Presentation Layer contains UI (UIViewControllers). Views are coordinated by ViewModels (Presenters) which execute one or many Use Cases. Presentation Layer depends only on the Domain Layer.
 
-### View
+##### View
+ViewControllers/Views which only displays prepared data and communicate with ViewModels.
 
-### View Model
-
+##### View Model
+ViewModel receives actions from events such as button tap or view lifecycle onAppear and processes them.
 
 ## Cloning the project
 
