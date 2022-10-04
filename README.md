@@ -4,25 +4,25 @@
 
 This project contains MVVM-Clean architecture and Dependency injection
 
-### Folder Structure
+# Folder Structure
 
 ## Data Layer
 
-# Repository
+### Repository
 
-# Data Source
+### Data Source
 
 ## Domain Layer
 
-# Entity 
+### Entity 
 
-# Usecases
+### Usecases
 
 ## Presentation Layer
 
-# View
+### View
 
-# View Model
+### View Model
 
 
 ## Cloning the project
