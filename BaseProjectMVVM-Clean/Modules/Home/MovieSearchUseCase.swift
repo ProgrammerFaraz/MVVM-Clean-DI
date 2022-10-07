@@ -8,18 +8,21 @@
 import Foundation
 
 protocol MovieSearchUseCase {
-    func fetchSearchResult(query: String, completion: @escaping (MovieResponse?, String?) -> ())
+    func fetchSearchResult(method: FetchingType, query: String, completion: @escaping (MovieResponse?, String?) -> ())
 }
 
 class DefaultMovieSearchUseCase: MovieSearchUseCase {
-    private let homeRepository = HomeRemoteRepository()
+    private var homeRepository: HomeRemoteRepository
     
+    init(homeRepository: HomeRemoteRepository) {
+        self.homeRepository = homeRepository
+    }
     /// To fetch search results
     /// - Parameters:
     ///   - query: search query string
     ///   - completion: closure to be executed once the search result is fetched from the server
-    func fetchSearchResult(query: String, completion: @escaping (MovieResponse?, String?) -> ()) {
-        homeRepository.fetchSearchedMovies(query: query) { response, errorMsg in
+    func fetchSearchResult(method: FetchingType = .remote, query: String, completion: @escaping (MovieResponse?, String?) -> ()) {
+        homeRepository.fetchSearchedMovies(from: .remote, query: query) { response, errorMsg in
             if let errorMsg = errorMsg {
                 completion(nil, errorMsg)
                 return

@@ -7,17 +7,69 @@
 
 import Foundation
 
-class HomeViewModel {
+protocol HomeViewModel {
+    func loadPopularMovie(method: FetchingType)
+    func loadMovieDetail(method: FetchingType, movieID: String)
+    func loadMovieBySearch(method: FetchingType, query: String)
+}
+
+extension HomeViewModel {
     
-    private var popularUseCase = DefaultMoviePopularUseCase()
-//    private var detailsUseCase = DefaultMovieDetailUseCase()
-//    private var searchedUseCase = DefaultMovieSearchUseCase()
+}
+
+class DefaultHomeViewModel: HomeViewModel {
+    
+    private var popularUseCase: MoviePopularUseCase
+    private var detailsUseCase: MovieDetailUseCase
+    private var searchedUseCase: MovieSearchUseCase
 
     var onSuccessMoviesFetch: ((MovieResponse)->Void)?
     var onError: ((String)->Void)?
     
-    func loadPopularMovie() {
-        popularUseCase.fetchPopularMovies { [weak self] response, errorMsg in
+    init(popularUseCase: MoviePopularUseCase, detailsUseCase: MovieDetailUseCase, searchedUseCase: MovieSearchUseCase) {
+        self.popularUseCase = popularUseCase
+        self.detailsUseCase = detailsUseCase
+        self.searchedUseCase = searchedUseCase
+    }
+
+//    init(popularUseCase: DefaultMoviePopularUseCase) {
+//        self.popularUseCase = popularUseCase
+//    }
+//
+//    init(detailsUseCase: DefaultMovieDetailUseCase) {
+//        self.popularUseCase = popularUseCase
+//    }
+//
+//    init(searchedUseCase: DefaultMovieSearchUseCase) {
+//        self.popularUseCase = popularUseCase
+//    }
+    
+    func loadPopularMovie(method: FetchingType) {
+        popularUseCase.fetchPopularMovies(method: method) { [weak self] response, errorMsg in
+            guard let self = self else { return }
+            if let errorMsg = errorMsg {
+                self.onError?(errorMsg)
+                return
+            }
+            guard let response = response else { return }
+            self.onSuccessMoviesFetch?(response)
+        }
+    }
+    
+    func loadMovieDetail(method: FetchingType, movieID: String) {
+        detailsUseCase.fetchMovieDetail(method: method, movieID: movieID) { [weak self] response, errorMsg in
+            guard let self = self else { return }
+            if let errorMsg = errorMsg {
+                self.onError?(errorMsg)
+                return
+            }
+            guard let response = response else { return }
+            self.onSuccessMoviesFetch?(response)
+        }
+    }
+    
+    func loadMovieBySearch(method: FetchingType, query: String) {
+        searchedUseCase.fetchSearchResult(method: method, query: query) { [weak self] response, errorMsg in
             guard let self = self else { return }
             if let errorMsg = errorMsg {
                 self.onError?(errorMsg)

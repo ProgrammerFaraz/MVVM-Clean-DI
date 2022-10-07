@@ -8,18 +8,22 @@
 import Foundation
 
 protocol MovieDetailUseCase {
-    func fetchMovieDetail(movieID: String, completion: @escaping (MovieResponse?, String?) -> ())
+    func fetchMovieDetail(method: FetchingType, movieID: String, completion: @escaping (MovieResponse?, String?) -> ())
 }
 
 class DefaultMovieDetailUseCase: MovieDetailUseCase {
-    private var homeRepository = HomeRemoteRepository()
+    private var homeRepository: HomeRemoteRepository
     
+    
+    init(homeRepository: HomeRemoteRepository) {
+        self.homeRepository = homeRepository
+    }
     /// To fetch single movie details
     /// - Parameters:
     ///   - movieId: ID of particular movie for which the data is to be fetched
     ///   - completion: closure to be executed once the movie details is fetched from server
-    func fetchMovieDetail(movieID: String, completion: @escaping (MovieResponse?, String?) -> ()) {
-        homeRepository.fetchMovieDetails(movieID: movieID) { response, errorMsg in
+    func fetchMovieDetail(method: FetchingType = .remote, movieID: String, completion: @escaping (MovieResponse?, String?) -> ()) {
+        homeRepository.fetchMovieDetails(from: .remote, movieID: movieID) { response, errorMsg in
             if let errorMsg = errorMsg {
                 completion(nil, errorMsg)
                 return

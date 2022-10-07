@@ -11,20 +11,20 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     
-    private var viewModel = HomeViewModel()
+    var viewModel: DefaultHomeViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bindHomeViewModel()
-        viewModel.loadPopularMovie()
+        viewModel?.loadPopularMovie(method: .remote)
     }
     
     private func bindHomeViewModel() {
-        viewModel.onSuccessMoviesFetch = { [weak self] movies in
+        viewModel?.onSuccessMoviesFetch = { [weak self] movies in
             guard let self = self else { return }
             self.titleLabel.text = movies.results?.first?.title ?? ""
         }
-        viewModel.onError = { [weak self] error in
+        viewModel?.onError = { [weak self] error in
             guard let self = self else { return }
             self.titleLabel.text = error
         }
