@@ -11,14 +11,6 @@ class BaseRepository {
     
 //    var networkAdapter : NetworkChangeNotifiable = NetworkChangeClass()
     
-    enum FetchingType {
-        case remote
-        case local
-        case remoteUpdateLocal
-        case localFetchingRemote
-        case automatic
-    }
-    
     /// A general method to show alert to user coming from API Request.
     ///
     /// - Parameters:

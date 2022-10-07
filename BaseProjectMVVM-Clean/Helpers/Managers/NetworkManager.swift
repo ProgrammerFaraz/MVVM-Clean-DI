@@ -8,6 +8,14 @@
 import Foundation
 import Moya
 
+enum FetchingType {
+    case remote
+    case local
+//    case remoteUpdateLocal
+//    case localFetchingRemote
+//    case automatic
+}
+
 protocol APIRequestProtocol {
     static func request<T: Decodable>(target: API, completion: @escaping (Result<T, Error>) -> ())
 }
