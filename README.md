@@ -34,6 +34,9 @@ ViewControllers/Views which only displays prepared data and communicate with Vie
 ##### View Model
 ViewModel receives actions from events such as button tap or view lifecycle onAppear and processes them.
 
+## Dependency Provider
+Dependency provider will be made for every module. It's job is to instantiate and resolve dependencies of each module. 
+
 ## Cloning the project
 
 ### Using XCode:
