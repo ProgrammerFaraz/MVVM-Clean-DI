@@ -1,4 +1,4 @@
-# SprintZero Base Project
+# MVVM-Clean with Dependency Provider
 
 ## Introduction
 
